@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "description": "Configurable gateway that creates routes to a rest services",
   "main": "./dist/main.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/tonyeu/GatewayRESTRedirect.git"
@@ -16,12 +13,29 @@
     "Configurable",
     "Redirect"
   ],
-  "author": "Antonio Ramos <appa.ramos@gmail.com>",
+  "author": {
+    "name": "Antonio Ramos",
+    "email": "appa.ramos@gmail.com"
+  },
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/tonyeu/GatewayRESTRedirect/issues"
   },
   "homepage": "https://github.com/tonyeu/GatewayRESTRedirect#readme",
+  "scripts": {
+    "tsc": "tsc",
+    "start": "node ./dist/main.js",
+    "clean": "rd /S /Q node_modules && rd /S /Q dist",
+    "dev": "npm install && npm run tsc",
+    "prod": "npm install --production --silent && npm run tsc",
+    "docker-stop": "docker stop /GatewayRESTRedirect",
+    "docker-remove": "docker rm /GatewayRESTRedirect",
+    "docker-build": "docker build -t gtrestr/gtrestr:1.0.0 .",
+    "docker-run": "docker run --name GatewayRESTRedirect -p 10000:12345 -d gtrestr/gtrestr:1.0.0",
+    "docker-start": "(npm run docker-stop || exit 0) && docker start GatewayRESTRedirect",
+    "docker-stop-remove": "(npm run docker-stop || exit 0) && (npm run docker-remove || exit 0)",
+    "docker-deploy": "npm run docker-build && npm run docker-stop-remove &&npm run docker-run"
+  },
   "dependencies": {
     "@types/express": "^4.16.1",
     "express": "^4.16.4"
