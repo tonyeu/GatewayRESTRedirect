@@ -6,7 +6,8 @@
     "jsRules": {},
     "rules": {
         "indent": [true, "tabs", 2],
-        "quotemark": [true, "double", "jsx-double"]
+        "quotemark": [true, "double", "jsx-double"],
+        "trailing-comma": [true, {"multiline": "always", "singleline": "never","esSpecCompliant": true}]
     },
     "rulesDirectory": []
 }

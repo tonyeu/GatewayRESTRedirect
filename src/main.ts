@@ -1,28 +1,18 @@
-import express from "express";
-import https from "https";
+import GatewayRESTRedirect, { IGatewayOptions } from "./core/GatewayRESTRedirect";
 
 // Constants
 const PORT = 12345;
 const HOST = "0.0.0.0";
-const URL = "https://api.iextrading.com/1.0";
-const stock = "AAPL";
+// const URL = "https://api.iextrading.com/1.0";
+// const stock = "AAPL";
+
 // App
-const app = express();
-app.get("/", (_req, res) => {
-	https.get(`${URL}/stock/${stock}/book`, (response) => {
+const options: IGatewayOptions = {
+	host: HOST,
+	logger: { logger: "console" },
+	port: PORT,
+};
 
-		let json = "";
-		response.on("data", (data) => {
-			json += data;
-		});
-		response.on("end", () => {
-			res.send(JSON.stringify(JSON.parse(json)));
-		});
+const gateway = new GatewayRESTRedirect(options);
 
-	}).on("error", (e) => {
-		console.log(e);
-	});
-});
-
-app.listen(PORT, HOST);
-console.log(`Running on http://${HOST}:${PORT}`);
+gateway.listen(PORT, HOST);
